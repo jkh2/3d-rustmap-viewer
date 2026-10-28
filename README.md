@@ -1,6 +1,6 @@
 # Ridgeglass
 
-**Live demo:** [jameskeithharwood.com/3d-rustmap-viewer](https://jameskeithharwood.com/3d-rustmap-viewer/)
+**Live demo:** [ridgeglass.vercel.app](https://ridgeglass.vercel.app/)
 
 A 3D explorer for [Rust](https://rust.facepunch.com/) maps. Paste a [RustMaps](https://rustmaps.com/) link, a size and seed, or pick a chart from the live catalog, then orbit, tilt, and fly the island.
 
@@ -32,7 +32,7 @@ npm run build
 
 ## Earlier demo
 
-The [live demo](https://jameskeithharwood.com/3d-rustmap-viewer/) is that first single-file viewer, served from this repo on GitHub Pages. Drop in a heightmap PNG and a satellite texture, or generate a procedural island. The same file is `index.html` (what Pages serves) and `prototype/index.html`.
+`prototype/index.html` is the first single-file viewer: drop in a heightmap PNG and a satellite texture, or generate a procedural island. The live app is the Vercel deploy above.
 
 ## Stack
 
