@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-bg: #141210;
+  --color-surface: #1e1b17;
+  --color-surface-2: #2a261f;
+  --color-fg: #f3ece3;
+  --color-muted: #a89b8c;
+  --color-primary: #d4653a;
+  --color-primary-fg: #1a0e08;
+  --color-border: #3a342c;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html,
+  body {
+    height: 100%;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+  }
+}
+
+.pin {
+  position: absolute;
+  transform: translate(-50%, -120%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  pointer-events: auto;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--color-fg);
+}
+.pin span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-fg);
+  background: color-mix(in oklab, var(--color-bg) 78%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 2px 6px;
+}
+.pin i {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-primary) 35%, transparent);
+}
+.pin:hover span {
+  border-color: var(--color-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pin,
+  button {
+    transition: none;
+  }
+}

@@ -1,55 +1,37 @@
-# 3D Rust Map Viewer
+# Ridgeglass
 
-Interactive 3D terrain viewer for Rust maps. Load a heightmap + satellite texture (or try the built-in demo island) and explore from any angle with free orbit, pan, and zoom.
+A 3D explorer for [Rust](https://rust.facepunch.com/) maps. Paste a [RustMaps](https://rustmaps.com/) link, a size and seed, or pick a chart from the live catalog, then orbit, tilt, and fly the island.
 
-**Live demo** (GitHub Pages): once enabled, it will be at  
-`https://jkh2.github.io/3d-rustmap-viewer/`
+## What it does
 
-## Features
+- Pulls real maps from the RustMaps catalog (size, seed, or map URL)
+- Drapes the official chart image over a terrain mesh
+- Builds relief from the chart: ocean stays flat, coast rises inland, snow sits higher
+- Monument pins with names, decluttered so they stay readable
+- Rust grid readout (column / row, east, north, elevation) under the cursor
+- Orbit camera and a free-fly camera (WASD, mouse look, Shift to sprint, Space / Ctrl for altitude)
+- Vertical exaggeration, small-monument toggle, and a compass
 
-- Drag-and-drop or file-select heightmap (grayscale PNG) + optional satellite/texture image
-- Procedural **Demo Island** that generates a Rust-style terrain on the fly
-- Smooth OrbitControls (left-drag orbit, right-drag pan, scroll zoom)
-- Vertical exaggeration slider (terrain is relatively flat at true scale)
-- Water plane with adjustable level
-- Height-based coloring when no texture is provided (sand → grass → rock → snow)
-- Wireframe toggle, camera reset, soft shadows, and atmospheric fog
-- Gold/black metallic aesthetic
+Terrain height is reconstructed from the rendered map image. It matches the coastline, biomes, and monument layout of that exact chart. It is not yet the server's raw heightfield from a `.map` file.
 
-## How to Use
+## Run
 
-1. Open the page (or enable GitHub Pages on the `main` branch).
-2. Click **Demo Island** to explore immediately, or
-3. Select a heightmap PNG and (optionally) a satellite texture, then click **Load Map**.
-4. Adjust vertical exaggeration and water level with the sliders.
-5. Drag to orbit, right-drag to pan, scroll to zoom.
+```bash
+npm install
+npm run dev
+```
 
-### Getting heightmaps and textures from Rust
+The dev server listens on port 8080.
 
-- **rustmaps.com**: Open a map → download the high-res images or use the "Use" link for the full `.map` (future support planned).
-- **Local `.map` files**: Export a heightmap + satellite render from tools like RustEdit, Crucible Heightmap, or the [Rustmap-Parser](https://github.com/Cooperkit/Rustmap-Parser).
-- Best results come from a real 16-bit or high-resolution heightmap paired with a clean satellite view.
+```bash
+npm run typecheck
+npm run build
+```
 
-## Tech
+## Earlier demo
 
-- Pure client-side (no backend required for the current version)
-- Three.js (r128 via CDN) + OrbitControls
-- Self-contained `index.html` for easy GitHub Pages deployment
+`prototype/index.html` is the first single-file viewer: drop in a heightmap PNG and a satellite texture, or generate a procedural island. No backend. Open the file, or serve the folder, to use it.
 
-## Roadmap
+## Stack
 
-- Direct `.map` file upload and parsing (via Rustmap-Parser or a WASM port)
-- rustmaps.com URL paste → automatic image/heightmap fetch
-- Monument markers and overlays
-- Free-fly camera mode
-- LOD / chunked terrain for very large maps
-- Export screenshots or glTF
-
-## Development
-
-This is a single-file viewer for simplicity and instant deployment. For larger features (full `.map` parsing, server-side processing), a small Python (FastAPI) backend using [Rustmap-Parser](https://github.com/Cooperkit/Rustmap-Parser) is the natural next step.
-
----
-
-Built for accurate, explorable 3D views of Rust maps.  
-Feel free to fork, improve, and share.
+TanStack Start, React 19, Three.js, Tailwind. Map data comes from `https://api.rustmaps.com`. Chart images are loaded through a same-origin proxy so the canvas can read pixels.
